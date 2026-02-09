@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // Don't allow input during dialogue
-        DialogueManager dialogue = FindObjectOfType<DialogueManager>();
+        DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
         if (dialogue != null && dialogue.IsDialogueActive())
         {
             movement = Vector2.zero;

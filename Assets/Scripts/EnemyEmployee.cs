@@ -281,7 +281,7 @@ public class EnemyEmployee : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            DialogueManager dialogue = FindObjectOfType<DialogueManager>();
+            DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
             if (dialogue != null)
             {
                 // Get random dialogue (won't repeat last one)
