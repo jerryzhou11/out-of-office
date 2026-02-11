@@ -291,6 +291,7 @@ public class EnemyEmployee : MonoBehaviour
         
             rb.linearVelocity = Vector2.zero;
             currentState = State.Wandering; // Pause AI during dialogue
+            ReturnHome();
         }
     }
     
