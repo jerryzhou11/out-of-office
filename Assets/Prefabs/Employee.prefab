@@ -180,7 +180,7 @@ MonoBehaviour:
   knockbackDuration: 0.3
   returnHomeCooldown: 2
   spriteRenderer: {fileID: 0}
-  normalColor: {r: 0.2901961, g: 0.65882355, b: 0.26666668, a: 1}
+  normalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   chaseColor: {r: 1, g: 0, b: 0, a: 1}
   possibleDialogues:
   - Hey boss! Got a minute?

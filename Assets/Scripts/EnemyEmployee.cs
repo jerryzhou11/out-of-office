@@ -38,7 +38,7 @@ public class EnemyEmployee : MonoBehaviour
     
     [Header("Visual Feedback")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Color normalColor = Color.green;
+    [SerializeField] private Color normalColor = Color.gray;
     [SerializeField] private Color chaseColor = Color.red;
     
     [Header("Dialogue")]
