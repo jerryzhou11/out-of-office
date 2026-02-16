@@ -4,7 +4,7 @@ public class Staircase : MonoBehaviour
 {
     [Header("Visual (Optional)")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Color staircaseColor = new Color(0.4f, 0.8f, 0.4f); // Green
+    [SerializeField] private Color staircaseColor = new Color(0.4f, 0.8f, 0.4f); // Greens
 
     void Start()
     {
