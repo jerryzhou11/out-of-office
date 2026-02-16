@@ -1,0 +1,119 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+
+    [Header("Day Tracking")]
+    public int currentDay = 1;
+
+    public enum GameState { Playing, Paused, Won, Lost }
+    public GameState State { get; private set; } = GameState.Playing;
+
+    // Panels register themselves via RegisterPanels() on Start
+    private GameObject pauseMenuPanel;
+    private GameObject gameOverPanel;
+    private GameObject winPanel;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Clear stale panel references - panels will re-register themselves via RegisterPanels()
+        pauseMenuPanel = null;
+        gameOverPanel  = null;
+        winPanel       = null;
+
+        // Reset to playing - panels will register shortly after in their own Start()
+        State = GameState.Playing;
+        Time.timeScale = 1f;
+    }
+
+    // Called by each panel's UIPanel component on Start()
+    public void RegisterPanels(GameObject pause, GameObject gameOver, GameObject win)
+    {
+        if (pause    != null) pauseMenuPanel = pause;
+        if (gameOver != null) gameOverPanel  = gameOver;
+        if (win      != null) winPanel       = win;
+    }
+
+    public void SetState(GameState newState)
+    {
+        State = newState;
+
+        switch (newState)
+        {
+            case GameState.Playing:
+                Time.timeScale = 1f;
+                SetPanelActive(pauseMenuPanel, false);
+                SetPanelActive(gameOverPanel,  false);
+                SetPanelActive(winPanel,       false);
+                break;
+
+            case GameState.Paused:
+                Time.timeScale = 0f;
+                SetPanelActive(pauseMenuPanel, true);
+                break;
+
+            case GameState.Lost:
+                Time.timeScale = 0f;
+                SetPanelActive(gameOverPanel, true);
+                break;
+
+            case GameState.Won:
+                Time.timeScale = 0f;
+                SetPanelActive(winPanel, true);
+                break;
+        }
+    }
+
+    // ---- Button Callbacks ----
+
+    public void Resume()
+    {
+        SetState(GameState.Playing);
+    }
+
+    public void ClockOutEarly()
+    {
+        currentDay++;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void NextDay()
+    {
+        currentDay++;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void NextFloor()
+    {
+        currentDay++;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void SetPanelActive(GameObject panel, bool active)
+    {
+        if (panel != null) panel.SetActive(active);
+    }
+}
