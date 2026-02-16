@@ -2833,7 +2833,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
+  m_Color: {r: 0.18867922, g: 0.18867922, b: 0.18867922, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2877,14 +2877,14 @@ MonoBehaviour:
   chaseSpeed: 3.5
   wanderRadius: 3
   wanderChangeInterval: 2
-  detectionRadius: 5
+  detectionRadius: 4
   useStartAsHome: 1
   homePoint: {x: 0, y: 0}
   knockbackForce: 5
   knockbackDuration: 0.3
   returnHomeCooldown: 3
   spriteRenderer: {fileID: 0}
-  normalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  normalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   chaseColor: {r: 1, g: 0, b: 0, a: 1}
   possibleDialogues:
   - Hey boss! Got a minute?
