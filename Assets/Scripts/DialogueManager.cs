@@ -50,12 +50,12 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text = text;
         }
         
-        // Pause game if enabled
-        if (pauseGameDuringDialogue)
+        // Enter dialogue state — clock keeps ticking, player freezes
+        if (pauseGameDuringDialogue && GameManager.Instance != null)
         {
-            Time.timeScale = 0f;
+            GameManager.Instance.SetState(GameManager.GameState.InDialogue);
         }
-        
+
         isDialogueActive = true;
     }
     
@@ -73,12 +73,12 @@ public class DialogueManager : MonoBehaviour
             currentEnemy = null;
         }
         
-        // Resume game
-        if (pauseGameDuringDialogue)
+        // Resume playing
+        if (pauseGameDuringDialogue && GameManager.Instance != null)
         {
-            Time.timeScale = 1f;
+            GameManager.Instance.SetState(GameManager.GameState.Playing);
         }
-        
+
         isDialogueActive = false;
     }
     

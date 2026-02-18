@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("Day Tracking")]
     public int currentDay = 1;
 
-    public enum GameState { Playing, Paused, Won, Lost }
+    public enum GameState { Playing, Paused, Won, Lost, InDialogue }
     public GameState State { get; private set; } = GameState.Playing;
 
     // Panels register themselves via RegisterPanels() on Start
@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
             case GameState.Won:
                 Time.timeScale = 0f;
                 SetPanelActive(winPanel, true);
+                break;
+
+            case GameState.InDialogue:
+                // Time keeps running — dialogue wastes your precious time
+                Time.timeScale = 1f;
                 break;
         }
     }

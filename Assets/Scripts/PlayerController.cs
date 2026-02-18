@@ -41,15 +41,8 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        // Freeze if not in playing state
+        // Freeze if not in Playing state (covers Paused, Won, Lost, InDialogue)
         if (GameManager.Instance != null && GameManager.Instance.State != GameManager.GameState.Playing)
-        {
-            movement = Vector2.zero;
-            return;
-        }
-        // Don't allow input during dialogue
-        DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
-        if (dialogue != null && dialogue.IsDialogueActive())
         {
             movement = Vector2.zero;
             return;

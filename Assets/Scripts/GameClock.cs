@@ -30,9 +30,10 @@ public class GameClock : MonoBehaviour
 
     void Update()
     {
-        // Don't tick if game isn't in Playing state
+        // Don't tick if game isn't active (but DO tick during dialogue — that's the punishment)
         if (GameManager.Instance == null) return;
-        if (GameManager.Instance.State != GameManager.GameState.Playing) return;
+        var state = GameManager.Instance.State;
+        if (state != GameManager.GameState.Playing && state != GameManager.GameState.InDialogue) return;
         if (dayEnded) return;
 
         currentMinutes += minutesPerSecond * Time.deltaTime;

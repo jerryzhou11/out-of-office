@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.29099414, g: 0.6603774, b: 0.26477396, a: 1}
+  m_Color: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -176,12 +176,14 @@ MonoBehaviour:
   detectionRadius: 5
   useStartAsHome: 1
   homePoint: {x: 0, y: 0}
-  knockbackForce: 5
+  knockbackForce: 10
   knockbackDuration: 0.3
+  stunDuration: 1
   returnHomeCooldown: 2
   spriteRenderer: {fileID: 0}
-  normalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  normalColor: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
   chaseColor: {r: 1, g: 0, b: 0, a: 1}
+  stunnedColor: {r: 1, g: 1, b: 1, a: 1}
   possibleDialogues:
   - Hey boss! Got a minute?
   - I need to talk to you about my performance review!
