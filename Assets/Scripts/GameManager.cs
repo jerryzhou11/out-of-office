@@ -8,6 +8,14 @@ public class GameManager : MonoBehaviour
     [Header("Day Tracking")]
     public int currentDay = 1;
 
+    [Header("Floor Progression")]
+    [Tooltip("Scene names in order. Must match Build Settings exactly.")]
+    [SerializeField] private string[] floorScenes = new string[] { "Floor1", "Floor2" };
+    public int currentFloor = 0; // index into floorScenes
+
+    [Header("Clock Persistence")]
+    public float savedClockMinutes = -1f; // -1 means "start fresh at 9 AM"
+
     public enum GameState { Playing, Paused, Won, Lost, InDialogue }
     public GameState State { get; private set; } = GameState.Playing;
 
@@ -96,25 +104,56 @@ public class GameManager : MonoBehaviour
         SetState(GameState.Playing);
     }
 
+    /// <summary>
+    /// Pause menu: give up, start fresh tomorrow from floor 1.
+    /// </summary>
     public void ClockOutEarly()
     {
         currentDay++;
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        currentFloor = 0;
+        savedClockMinutes = -1f; // new day, fresh clock
+        LoadFloor(currentFloor);
     }
 
+    /// <summary>
+    /// Game-over panel: time ran out, start fresh tomorrow from floor 1.
+    /// </summary>
     public void NextDay()
     {
         currentDay++;
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        currentFloor = 0;
+        savedClockMinutes = -1f; // new day, fresh clock
+        LoadFloor(currentFloor);
     }
 
+    /// <summary>
+    /// Staircase / win panel: advance to the next floor. Clock keeps running.
+    /// </summary>
     public void NextFloor()
     {
-        currentDay++;
+        currentFloor++;
+
+        if (currentFloor >= floorScenes.Length)
+        {
+            // Beaten every floor — for now, stay on the last floor
+            // TODO: Replace with a proper ending / credits scene
+            Debug.Log("You've cleared every floor! Game complete.");
+            currentFloor = floorScenes.Length - 1;
+        }
+
+        // savedClockMinutes is already set by GameClock before scene transition
+        LoadFloor(currentFloor);
+    }
+
+    private void LoadFloor(int floorIndex)
+    {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(floorScenes[floorIndex]);
+    }
+
+    public bool IsLastFloor()
+    {
+        return currentFloor >= floorScenes.Length - 1;
     }
 
     private void SetPanelActive(GameObject panel, bool active)

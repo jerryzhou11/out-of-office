@@ -21,10 +21,15 @@ public class Staircase : MonoBehaviour
         if (GameManager.Instance == null) return;
         if (GameManager.Instance.State != GameManager.GameState.Playing) return;
 
-        GameManager.Instance.SetState(GameManager.GameState.Won);
-        //Future: Load next floor scene instead of showing win screen
-        //SceneManager.LoadScene("Floor_" + (currentFloor + 1));
-
+        // Last floor: show win screen. Otherwise: go straight to next floor.
+        if (GameManager.Instance.IsLastFloor())
+        {
+            GameManager.Instance.SetState(GameManager.GameState.Won);
+        }
+        else
+        {
+            GameManager.Instance.NextFloor();
+        }
     }
 
     void OnDrawGizmos()

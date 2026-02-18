@@ -21,8 +21,17 @@ public class GameClock : MonoBehaviour
 
     void Start()
     {
-        currentMinutes = START_MINUTES;
         minutesPerSecond = 10f / secondsPer10GameMinutes;
+
+        // Restore clock from GameManager if mid-day (floor transition), otherwise fresh 9 AM
+        if (GameManager.Instance != null && GameManager.Instance.savedClockMinutes >= 0f)
+        {
+            currentMinutes = GameManager.Instance.savedClockMinutes;
+        }
+        else
+        {
+            currentMinutes = START_MINUTES;
+        }
 
         UpdateClockUI();
         UpdateDayUI();
@@ -37,6 +46,9 @@ public class GameClock : MonoBehaviour
         if (dayEnded) return;
 
         currentMinutes += minutesPerSecond * Time.deltaTime;
+
+        // Keep GameManager in sync so floor transitions preserve the time
+        GameManager.Instance.savedClockMinutes = currentMinutes;
 
         if (currentMinutes >= END_MINUTES)
         {

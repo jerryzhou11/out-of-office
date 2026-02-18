@@ -18,6 +18,7 @@ public class EnemyEmployee : MonoBehaviour
     [SerializeField] private Vector2 homePoint;
 
     private Rigidbody2D rb;
+    private Collider2D col;
     private Transform player;
     private Vector2 wanderTarget;
     private float nextWanderTime;
@@ -64,6 +65,7 @@ public class EnemyEmployee : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
 
         if (spriteRenderer == null)
         {
@@ -176,6 +178,7 @@ public class EnemyEmployee : MonoBehaviour
     void EnterWanderState()
     {
         currentState = State.Wandering;
+        if (col != null) col.enabled = true;
         if (spriteRenderer != null)
         {
             spriteRenderer.color = normalColor;
@@ -186,6 +189,7 @@ public class EnemyEmployee : MonoBehaviour
     void EnterChaseState()
     {
         currentState = State.Chasing;
+        if (col != null) col.enabled = true;
         if (spriteRenderer != null)
         {
             spriteRenderer.color = chaseColor;
@@ -198,6 +202,7 @@ public class EnemyEmployee : MonoBehaviour
         isStunned = true;
         stunEndTime = Time.time + stunDuration;
         rb.linearVelocity = Vector2.zero;
+        if (col != null) col.enabled = false; // No collision while stunned
 
         if (spriteRenderer != null)
         {
@@ -266,6 +271,7 @@ public class EnemyEmployee : MonoBehaviour
         isKnockedBack = true;
         knockbackEndTime = Time.time + knockbackDuration;
         currentState = State.KnockedBack;
+        if (col != null) col.enabled = false; // No collision during knockback + stun
 
         // Immediately show stunned color — stays through knockback + stun
         if (spriteRenderer != null)

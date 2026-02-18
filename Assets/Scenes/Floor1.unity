@@ -3248,6 +3248,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   currentDay: 1
+  floorScenes:
+  - Floor1
+  - Floor2
+  - Floor3
+  currentFloor: 0
+  savedClockMinutes: -1
 --- !u!4 &1117869361
 Transform:
   m_ObjectHideFlags: 0
