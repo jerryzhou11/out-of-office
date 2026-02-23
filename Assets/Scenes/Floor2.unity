@@ -4923,7 +4923,7 @@ GameObject:
   - component: {fileID: 9180980960272694153}
   - component: {fileID: 7171321995478953752}
   m_Layer: 3
-  m_Name: Desk
+  m_Name: TempWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
