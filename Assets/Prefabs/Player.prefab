@@ -196,7 +196,7 @@ MonoBehaviour:
   slashRange: 1.5
   slashArcAngle: 90
   arcSegments: 20
-  slashDuration: 0.2
+  slashDuration: 0.4
   slashStartColor: {r: 1, g: 1, b: 1, a: 0.9}
   slashEndColor: {r: 0.8, g: 0.8, b: 1, a: 0}
 --- !u!222 &650863390075108458

@@ -7,11 +7,22 @@ public class EnemyEmployee : MonoBehaviour
     [SerializeField] private float chaseSpeed = 3.5f;
 
     [Header("Wander Behavior")]
-    [SerializeField] private float wanderRadius = 3f; // How far from home point
-    [SerializeField] private float wanderChangeInterval = 2f; // How often to pick new wander point
+    [SerializeField] private float wanderRadius = 3f;
+    [SerializeField] private float wanderChangeInterval = 2f;
 
     [Header("Detection")]
     [SerializeField] private float detectionRadius = 5f;
+
+    [Header("Line of Sight")]
+    [SerializeField] private LayerMask obstacleLayer; // Set to "Map" layer in Inspector
+    [Tooltip("If true, enemies need clear line of sight to detect the player")]
+    [SerializeField] private bool requireLineOfSight = true;
+
+    [Header("Obstacle Avoidance")]
+    [SerializeField] private float avoidanceRayLength = 1.5f;
+    [SerializeField] private float avoidanceStrength = 2f;
+    [SerializeField] private int avoidanceRayCount = 3; // rays per side (center + left + right)
+    [SerializeField] private float avoidanceSpreadAngle = 45f; // degrees from center
 
     [Header("Home Point")]
     [SerializeField] private bool useStartAsHome = true;
@@ -19,6 +30,7 @@ public class EnemyEmployee : MonoBehaviour
 
     private Rigidbody2D rb;
     private Collider2D col;
+    private Collider2D playerCol;
     private Transform player;
     private Vector2 wanderTarget;
     private float nextWanderTime;
@@ -37,7 +49,7 @@ public class EnemyEmployee : MonoBehaviour
     private bool isStunned = false;
 
     [Header("Post-Dialogue Cooldown")]
-    [SerializeField] private float returnHomeCooldown = 3f; // How long to ignore player after returning home
+    [SerializeField] private float returnHomeCooldown = 3f;
     private float canChaseAgainTime;
 
     private enum State { Wandering, Chasing, KnockedBack, Stunned, ReturningHome }
@@ -47,7 +59,7 @@ public class EnemyEmployee : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color normalColor = Color.gray;
     [SerializeField] private Color chaseColor = Color.red;
-    [SerializeField] private Color stunnedColor = new Color(0.7f, 0.7f, 0.3f); // Yellowish daze
+    [SerializeField] private Color stunnedColor = new Color(0.7f, 0.7f, 0.3f);
 
     [Header("Dialogue")]
     [SerializeField] private string[] possibleDialogues = new string[]
@@ -59,7 +71,13 @@ public class EnemyEmployee : MonoBehaviour
         "I've been here since 6 AM waiting for you!"
     };
 
-    private int lastDialogueIndex = -1; // Track last dialogue to prevent repeats
+    private int lastDialogueIndex = -1;
+
+    // Stuck detection for wander/return home
+    private Vector2 lastPosition;
+    private float stuckTimer = 0f;
+    private const float STUCK_THRESHOLD = 0.1f; // If moved less than this in STUCK_TIME, pick new target
+    private const float STUCK_TIME = 1f;
 
 
     void Start()
@@ -72,20 +90,18 @@ public class EnemyEmployee : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        // Set home point to starting position
         if (useStartAsHome)
         {
             homePoint = transform.position;
         }
 
-        // Find player
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
             player = playerObj.transform;
+            playerCol = playerObj.GetComponent<Collider2D>();
         }
 
-        // Pick first wander target
         PickNewWanderTarget();
 
         if (spriteRenderer != null)
@@ -93,62 +109,56 @@ public class EnemyEmployee : MonoBehaviour
             spriteRenderer.color = normalColor;
         }
 
-        // Allow chasing immediately at start
         canChaseAgainTime = 0f;
+        lastPosition = transform.position;
     }
 
     void Update()
     {
         if (player == null) return;
 
-        // Freeze all AI during dialogue (and other non-playing states except Playing)
+        // Freeze all AI during non-playing states
         if (GameManager.Instance != null && GameManager.Instance.State != GameManager.GameState.Playing)
         {
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        // Check if knockback has ended → transition to stunned
+        // Knockback → Stunned transition
         if (isKnockedBack && Time.time >= knockbackEndTime)
         {
             isKnockedBack = false;
             EnterStunnedState();
         }
 
-        // Don't do normal AI during knockback
-        if (isKnockedBack)
-        {
-            return;
-        }
+        if (isKnockedBack) return;
 
-        // Check if stun has ended → return to wander
+        // Stun → Wander transition
         if (isStunned && Time.time >= stunEndTime)
         {
             isStunned = false;
             EnterWanderState();
         }
 
-        // Don't do normal AI during stun
-        if (isStunned)
-        {
-            return;
-        }
+        if (isStunned) return;
 
-        // PRIORITY: Handle ReturningHome state first - don't let anything interrupt it
+        // Stuck detection (for wander and return home)
+        UpdateStuckDetection();
+
+        // PRIORITY: ReturningHome can't be interrupted
         if (currentState == State.ReturningHome)
         {
             ReturnHome();
-            return; // Exit early - don't do any other state checks
+            return;
         }
 
-        // Check distance to player (only when not returning home)
+        // Detection + state transitions
         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
-        // State transitions
-        // Only chase if cooldown has expired
         bool canChase = Time.time >= canChaseAgainTime;
+        bool inRange = distanceToPlayer <= detectionRadius;
+        bool hasLOS = !requireLineOfSight || HasLineOfSight();
 
-        if (distanceToPlayer <= detectionRadius && canChase)
+        if (inRange && canChase && hasLOS)
         {
             if (currentState != State.Chasing)
             {
@@ -157,7 +167,8 @@ public class EnemyEmployee : MonoBehaviour
         }
         else
         {
-            if (currentState != State.Wandering)
+            // Lost sight of player while chasing → go back to wandering
+            if (currentState == State.Chasing)
             {
                 EnterWanderState();
             }
@@ -175,10 +186,119 @@ public class EnemyEmployee : MonoBehaviour
         }
     }
 
+    // ---- Line of Sight ----
+
+    /// <summary>
+    /// Raycast from enemy to player. Returns true if no obstacle (Map layer) blocks the path.
+    /// </summary>
+    private bool HasLineOfSight()
+    {
+        Vector2 origin = transform.position;
+        Vector2 target = player.position;
+        Vector2 direction = target - origin;
+        float distance = direction.magnitude;
+
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction.normalized, distance, obstacleLayer);
+
+        // If raycast hit nothing on the obstacle layer, we have clear LOS
+        return hit.collider == null;
+    }
+
+    // ---- Obstacle Avoidance ----
+
+    /// <summary>
+    /// Given a desired movement direction, cast feeler rays and steer around obstacles.
+    /// Returns the adjusted direction.
+    /// </summary>
+    private Vector2 AvoidObstacles(Vector2 desiredDirection, float speed)
+    {
+        if (obstacleLayer == 0) return desiredDirection; // No obstacle layer set
+
+        Vector2 origin = (Vector2)transform.position;
+        Vector2 avoidance = Vector2.zero;
+        float rayLength = avoidanceRayLength * (speed / moveSpeed); // Scale with speed
+
+        // Cast rays in a fan: center, then spread left and right
+        for (int i = 0; i < avoidanceRayCount; i++)
+        {
+            float fraction = (avoidanceRayCount <= 1) ? 0f : (float)i / (avoidanceRayCount - 1);
+            // Map from [0, 1] to [-spreadAngle, +spreadAngle]
+            float angle = Mathf.Lerp(-avoidanceSpreadAngle, avoidanceSpreadAngle, fraction);
+
+            Vector2 rayDir = RotateVector(desiredDirection.normalized, angle);
+            RaycastHit2D hit = Physics2D.Raycast(origin, rayDir, rayLength, obstacleLayer);
+
+            if (hit.collider != null)
+            {
+                // Weight: closer hits push harder
+                float weight = 1f - (hit.distance / rayLength);
+                // Push perpendicular to the ray (away from the hit surface)
+                avoidance += hit.normal * weight * avoidanceStrength;
+            }
+        }
+
+        Vector2 result = (desiredDirection + avoidance).normalized;
+        return result;
+    }
+
+    private Vector2 RotateVector(Vector2 v, float degrees)
+    {
+        float rad = degrees * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
+        return new Vector2(v.x * cos - v.y * sin, v.x * sin + v.y * cos);
+    }
+
+    // ---- Stuck Detection ----
+
+    private void UpdateStuckDetection()
+    {
+        if (currentState == State.Wandering || currentState == State.ReturningHome)
+        {
+            float distMoved = Vector2.Distance(transform.position, lastPosition);
+            if (distMoved < STUCK_THRESHOLD * Time.deltaTime * 60f) // Scale threshold by framerate
+            {
+                stuckTimer += Time.deltaTime;
+                if (stuckTimer >= STUCK_TIME)
+                {
+                    OnStuck();
+                    stuckTimer = 0f;
+                }
+            }
+            else
+            {
+                stuckTimer = 0f;
+            }
+        }
+        else
+        {
+            stuckTimer = 0f;
+        }
+
+        lastPosition = transform.position;
+    }
+
+    private void OnStuck()
+    {
+        if (currentState == State.Wandering)
+        {
+            // Pick a new wander target — the current one is probably behind a wall
+            PickNewWanderTarget();
+        }
+        else if (currentState == State.ReturningHome)
+        {
+            // Can't reach home — just start wandering from here
+            homePoint = transform.position;
+            EnterWanderState();
+        }
+    }
+
+    // ---- State Transitions ----
+
     void EnterWanderState()
     {
         currentState = State.Wandering;
-        if (col != null) col.enabled = true;
+        SetIgnoreCharacters(false);
         if (spriteRenderer != null)
         {
             spriteRenderer.color = normalColor;
@@ -189,7 +309,7 @@ public class EnemyEmployee : MonoBehaviour
     void EnterChaseState()
     {
         currentState = State.Chasing;
-        if (col != null) col.enabled = true;
+        SetIgnoreCharacters(false);
         if (spriteRenderer != null)
         {
             spriteRenderer.color = chaseColor;
@@ -202,7 +322,7 @@ public class EnemyEmployee : MonoBehaviour
         isStunned = true;
         stunEndTime = Time.time + stunDuration;
         rb.linearVelocity = Vector2.zero;
-        if (col != null) col.enabled = false; // No collision while stunned
+        SetIgnoreCharacters(true);
 
         if (spriteRenderer != null)
         {
@@ -210,19 +330,19 @@ public class EnemyEmployee : MonoBehaviour
         }
     }
 
+    // ---- Movement States ----
+
     void Wander()
     {
-        // Pick new wander target periodically
         if (Time.time >= nextWanderTime)
         {
             PickNewWanderTarget();
         }
 
-        // Move toward wander target
         Vector2 direction = (wanderTarget - (Vector2)transform.position).normalized;
+        direction = AvoidObstacles(direction, moveSpeed);
         rb.linearVelocity = direction * moveSpeed;
 
-        // If close enough to target, pick new one
         if (Vector2.Distance(transform.position, wanderTarget) < 0.5f)
         {
             PickNewWanderTarget();
@@ -231,59 +351,72 @@ public class EnemyEmployee : MonoBehaviour
 
     void ChasePlayer()
     {
-        // Move toward player
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = ((Vector2)player.position - (Vector2)transform.position).normalized;
+        direction = AvoidObstacles(direction, chaseSpeed);
         rb.linearVelocity = direction * chaseSpeed;
     }
 
     void PickNewWanderTarget()
     {
-        // Pick random point within wander radius of home
-        Vector2 randomOffset = Random.insideUnitCircle * wanderRadius;
-        wanderTarget = homePoint + randomOffset;
+        // Try a few times to find a target that isn't inside a wall
+        for (int i = 0; i < 5; i++)
+        {
+            Vector2 randomOffset = Random.insideUnitCircle * wanderRadius;
+            Vector2 candidate = homePoint + randomOffset;
 
+            // Check if there's a clear path to the candidate
+            Vector2 origin = (Vector2)transform.position;
+            Vector2 dir = candidate - origin;
+            RaycastHit2D hit = Physics2D.Raycast(origin, dir.normalized, dir.magnitude, obstacleLayer);
+
+            if (hit.collider == null)
+            {
+                wanderTarget = candidate;
+                nextWanderTime = Time.time + wanderChangeInterval;
+                return;
+            }
+        }
+
+        // Fallback: just use a nearby point if all raycasts failed
+        wanderTarget = (Vector2)transform.position + Random.insideUnitCircle * 1f;
         nextWanderTime = Time.time + wanderChangeInterval;
     }
 
     void ReturnHome()
     {
-        // Move toward home point
         Vector2 direction = (homePoint - (Vector2)transform.position).normalized;
+        direction = AvoidObstacles(direction, moveSpeed);
         rb.linearVelocity = direction * moveSpeed;
 
-        // If close enough to home, start wandering again
         if (Vector2.Distance(transform.position, homePoint) < 0.5f)
         {
-            // Set cooldown before allowing chase again
             canChaseAgainTime = Time.time + returnHomeCooldown;
             EnterWanderState();
         }
     }
 
-    // Called by player attack
+    // ---- Combat ----
+
     public void ApplyKnockback(Vector2 direction)
     {
-        // Apply knockback force
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(direction.normalized * knockbackForce, ForceMode2D.Impulse);
 
-        // Set knockback state
         isKnockedBack = true;
         knockbackEndTime = Time.time + knockbackDuration;
         currentState = State.KnockedBack;
-        if (col != null) col.enabled = false; // No collision during knockback + stun
+        SetIgnoreCharacters(true);
 
-        // Immediately show stunned color — stays through knockback + stun
         if (spriteRenderer != null)
         {
             spriteRenderer.color = stunnedColor;
         }
     }
 
-    // Called by DialogueManager when dialogue closes
+    // ---- Dialogue ----
+
     public void OnDialogueEnd()
     {
-        // Immediately set cooldown to prevent chasing right away
         canChaseAgainTime = Time.time + returnHomeCooldown;
         currentState = State.ReturningHome;
         if (spriteRenderer != null)
@@ -292,10 +425,8 @@ public class EnemyEmployee : MonoBehaviour
         }
     }
 
-    // Get a random dialogue that's different from the last one
     private string GetRandomDialogue()
     {
-        // If only one dialogue, just return it
         if (possibleDialogues.Length == 1)
         {
             return possibleDialogues[0];
@@ -303,7 +434,6 @@ public class EnemyEmployee : MonoBehaviour
 
         int newIndex;
 
-        // Keep picking until we get a different one
         do
         {
             newIndex = Random.Range(0, possibleDialogues.Length);
@@ -316,7 +446,6 @@ public class EnemyEmployee : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Only trigger dialogue when aggroed (chasing) — not while wandering, stunned, etc.
         if (currentState != State.Chasing) return;
 
         if (collision.gameObject.CompareTag("Player"))
@@ -324,18 +453,40 @@ public class EnemyEmployee : MonoBehaviour
             DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
             if (dialogue != null)
             {
-                // Get random dialogue (won't repeat last one)
                 string randomDialogue = GetRandomDialogue();
                 dialogue.ShowDialogue(randomDialogue, this);
             }
 
             rb.linearVelocity = Vector2.zero;
-            currentState = State.Wandering; // Pause AI during dialogue
+            currentState = State.Wandering;
             ReturnHome();
         }
     }
 
-    // Visualize detection radius in editor
+    // ---- Collision Ignore ----
+
+    private void SetIgnoreCharacters(bool ignore)
+    {
+        if (col == null) return;
+
+        if (playerCol != null)
+        {
+            Physics2D.IgnoreCollision(col, playerCol, ignore);
+        }
+
+        foreach (var other in FindObjectsByType<EnemyEmployee>(FindObjectsSortMode.None))
+        {
+            if (other == this) continue;
+            Collider2D otherCol = other.GetComponent<Collider2D>();
+            if (otherCol != null)
+            {
+                Physics2D.IgnoreCollision(col, otherCol, ignore);
+            }
+        }
+    }
+
+    // ---- Gizmos ----
+
     void OnDrawGizmosSelected()
     {
         Vector3 homePos = useStartAsHome ? transform.position : (Vector3)homePoint;
@@ -347,5 +498,13 @@ public class EnemyEmployee : MonoBehaviour
         // Detection radius (red)
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRadius);
+
+        // Line of sight to player (green = clear, red = blocked)
+        if (Application.isPlaying && player != null)
+        {
+            bool los = HasLineOfSight();
+            Gizmos.color = los ? Color.green : Color.red;
+            Gizmos.DrawLine(transform.position, player.position);
+        }
     }
 }
