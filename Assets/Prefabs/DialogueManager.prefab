@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1233611453904174370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2377721938466580858}
+  - component: {fileID: 4059555238248051582}
+  - component: {fileID: 5445053785956350048}
+  m_Layer: 5
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2377721938466580858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233611453904174370}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 832.0111, y: 373.1933, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4059555238248051582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233611453904174370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dba6449c118a4e5abc77dad31d87dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  dialoguePanel: {fileID: 0}
+  dialogueText: {fileID: 0}
+  continueButton: {fileID: 0}
+  qteManager: {fileID: 5445053785956350048}
+  pauseGameDuringDialogue: 1
+--- !u!114 &5445053785956350048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233611453904174370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e47541c305684791ba5abf9807c484b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QTEManager
+  qtePanel: {fileID: 0}
+  promptText: {fileID: 0}
+  keyDisplayText: {fileID: 0}
+  timerBarFill: {fileID: 0}
+  clickTarget: {fileID: 0}
+  clickTargetRect: {fileID: 0}
+  qtePanelRect: {fileID: 0}
+  qteTimeLimit: 2
+  keyPool: 14000000150000001600000018000000190000001a0000001f000000200000002200000023000000170000001d0000001e00000028000000260000001100000024000000100000001c0000001b000000
+  keyPressPrompts:
+  - Press [{0}] to approve the budget
+  - Press [{0}] to sign the memo
+  - Press [{0}] to authorize the expense report
+  - Press [{0}] to confirm the meeting
+  - Press [{0}] to acknowledge receipt
+  - Press [{0}] to endorse the proposal
+  - Press [{0}] to initial the document
+  - Press [{0}] to stamp APPROVED
+  clickTargetPrompts:
+  - "Sign here \u2193"
+  - "Stamp this \u2193"
+  - "Initial here \u2193"
+  - "Click to approve \u2193"
+  - "Rubber-stamp this \u2193"
+  - "Put your John Hancock here \u2193"
+  shakeDuration: 0.3
+  shakeIntensity: 10
