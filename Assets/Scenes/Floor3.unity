@@ -519,6 +519,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4632658805887839545, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1117869360}
+    - target: {fileID: 4632658805887839545, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 4632658805887839545, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709489899089204837, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1117869360}
+    - target: {fileID: 5709489899089204837, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ClockOutEarly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5709489899089204837, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6574276610790464530, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
