@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1387446756478823510}
   - component: {fileID: 650863390075108458}
   - component: {fileID: 1187715274274558074}
+  - component: {fileID: -6910421753027112162}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -92,7 +93,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 350060243592099928, guid: 297cbe854e98d764eb02530ffcefac8e, type: 3}
+  m_Sprite: {fileID: -169163024, guid: 4df4506a978f601459c8252833c0ff37, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -244,6 +245,26 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Player
+--- !u!111 &-6910421753027112162
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82506875325521307}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 1d187cd65d7f8c44a904c088c4193847, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: fa191d4a7a8a89245bdc86821a9301c2, type: 2}
+  - {fileID: 7400000, guid: 00e3af41aeda1964d9ed2e6061e3d631, type: 2}
+  - {fileID: 7400000, guid: 3fc3c0ed5d9941c46b7d67f8315de07d, type: 2}
+  - {fileID: 7400000, guid: 1d187cd65d7f8c44a904c088c4193847, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &186129444356417386
 GameObject:
   m_ObjectHideFlags: 0
