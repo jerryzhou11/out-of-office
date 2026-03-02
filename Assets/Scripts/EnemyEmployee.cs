@@ -198,9 +198,12 @@ public class EnemyEmployee : MonoBehaviour
         Vector2 direction = target - origin;
         float distance = direction.magnitude;
 
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction.normalized, distance, obstacleLayer);
+        // Shorten the ray so it doesn't clip walls the player is hugging
+        float margin = 0.5f;
+        float rayDistance = Mathf.Max(distance - margin, 0.1f);
 
-        // If raycast hit nothing on the obstacle layer, we have clear LOS
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction.normalized, rayDistance, obstacleLayer);
+
         return hit.collider == null;
     }
 
@@ -352,7 +355,14 @@ public class EnemyEmployee : MonoBehaviour
     void ChasePlayer()
     {
         Vector2 direction = ((Vector2)player.position - (Vector2)transform.position).normalized;
-        direction = AvoidObstacles(direction, chaseSpeed);
+
+        // Skip avoidance when close to the player — just beeline to them
+        float distToPlayer = Vector2.Distance(transform.position, player.position);
+        if (distToPlayer > avoidanceRayLength)
+        {
+            direction = AvoidObstacles(direction, chaseSpeed);
+        }
+
         rb.linearVelocity = direction * chaseSpeed;
     }
 
@@ -399,8 +409,13 @@ public class EnemyEmployee : MonoBehaviour
 
     public void ApplyKnockback(Vector2 direction)
     {
+        ApplyKnockback(direction, knockbackForce);
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force)
+    {
         rb.linearVelocity = Vector2.zero;
-        rb.AddForce(direction.normalized * knockbackForce, ForceMode2D.Impulse);
+        rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
 
         isKnockedBack = true;
         knockbackEndTime = Time.time + knockbackDuration;
@@ -450,6 +465,10 @@ public class EnemyEmployee : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
+            // Don't trigger dialogue if player has i-frames
+            PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
+            if (pc != null && pc.HasIFrames()) return;
+
             DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
             if (dialogue != null)
             {

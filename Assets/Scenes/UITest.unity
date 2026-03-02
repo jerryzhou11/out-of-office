@@ -3597,6 +3597,9 @@ MonoBehaviour:
   moveSpeed: 5
   attackRange: 1.5
   attackCooldown: 0.5
+  iFrameDuration: 1
+  iFramePushRadius: 2
+  iFramePushForce: 2
   slashEffect: {fileID: 0}
 --- !u!58 &1861284481
 CircleCollider2D:

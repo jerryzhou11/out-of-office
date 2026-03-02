@@ -9,10 +9,16 @@ public class PlayerController : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackCooldown = 0.5f;
-    
+
+    [Header("Invincibility Frames")]
+    [SerializeField] private float iFrameDuration = 1f;
+    [SerializeField] private float iFramePushRadius = 2f;
+    [SerializeField] private float iFramePushForce = 8f;
+
     private Rigidbody2D rb;
     private Vector2 movement;
     private float lastAttackTime;
+    private float iFrameEndTime;
     private Animator animator;
     private Camera mainCamera;
     private SpriteRenderer spriteRenderer;
@@ -133,5 +139,33 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
+    }
+
+    // ---- Invincibility Frames ----
+
+    /// <summary>
+    /// Called by DialogueManager when dialogue closes.
+    /// Pushes all nearby enemies away and grants brief dialogue immunity.
+    /// </summary>
+    public void ActivateIFrames()
+    {
+        iFrameEndTime = Time.time + iFrameDuration;
+
+        // AoE push: knock back all enemies in radius
+        Collider2D[] nearby = Physics2D.OverlapCircleAll(transform.position, iFramePushRadius);
+        foreach (Collider2D col in nearby)
+        {
+            EnemyEmployee enemy = col.GetComponent<EnemyEmployee>();
+            if (enemy != null)
+            {
+                Vector2 pushDir = (col.transform.position - transform.position).normalized;
+                enemy.ApplyKnockback(pushDir, iFramePushForce);
+            }
+        }
+    }
+
+    public bool HasIFrames()
+    {
+        return Time.time < iFrameEndTime;
     }
 }

@@ -113,6 +113,14 @@ public class DialogueManager : MonoBehaviour
             GameManager.Instance.SetState(GameManager.GameState.Playing);
         }
 
+        // Grant player i-frames — pushes nearby enemies away and prevents immediate re-dialogue
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            PlayerController pc = playerObj.GetComponent<PlayerController>();
+            if (pc != null) pc.ActivateIFrames();
+        }
+
         isDialogueActive = false;
     }
 
