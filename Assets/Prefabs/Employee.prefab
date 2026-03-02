@@ -182,6 +182,9 @@ MonoBehaviour:
   avoidanceStrength: 2
   avoidanceRayCount: 3
   avoidanceSpreadAngle: 45
+  chaseStuckTime: 0.5
+  flankDuration: 1.5
+  chaseGiveUpTime: 5
   useStartAsHome: 1
   homePoint: {x: 0, y: 0}
   knockbackForce: 10
@@ -189,9 +192,9 @@ MonoBehaviour:
   stunDuration: 1
   returnHomeCooldown: 2
   spriteRenderer: {fileID: 0}
-  normalColor: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
   chaseColor: {r: 1, g: 0, b: 0, a: 1}
-  stunnedColor: {r: 1, g: 1, b: 1, a: 1}
+  stunnedColor: {r: 1, g: 0.703192, b: 0, a: 1}
   possibleDialogues:
   - Hey boss! Got a minute?
   - I need to talk to you about my performance review!
