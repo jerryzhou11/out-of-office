@@ -24,6 +24,18 @@ public class EnemyEmployee : MonoBehaviour
     [SerializeField] private int avoidanceRayCount = 3; // rays per side (center + left + right)
     [SerializeField] private float avoidanceSpreadAngle = 45f; // degrees from center
 
+    [Header("Chase Navigation")]
+    [SerializeField] private float chaseStuckTime = 0.5f;   // Seconds stuck before flanking
+    [SerializeField] private float flankDuration = 1.5f;     // How long each flank attempt lasts
+    [SerializeField] private float chaseGiveUpTime = 5f;     // Total stuck time before losing aggro
+
+    private float chaseStuckTimer = 0f;
+    private float totalChaseStuckTime = 0f;
+    private float lastChaseDistToPlayer = Mathf.Infinity;
+    private bool isFlanking = false;
+    private float flankEndTime;
+    private int flankDirection; // 1 or -1
+
     [Header("Home Point")]
     [SerializeField] private bool useStartAsHome = true;
     [SerializeField] private Vector2 homePoint;
@@ -198,13 +210,16 @@ public class EnemyEmployee : MonoBehaviour
         Vector2 direction = target - origin;
         float distance = direction.magnitude;
 
-        // Shorten the ray so it doesn't clip walls the player is hugging
-        float margin = 0.5f;
-        float rayDistance = Mathf.Max(distance - margin, 0.1f);
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction.normalized, distance, obstacleLayer);
 
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction.normalized, rayDistance, obstacleLayer);
+        if (hit.collider == null)
+            return true; // Nothing blocking the path
 
-        return hit.collider == null;
+        // If the wall hit is very close to the player, they're just hugging
+        // a wall on the enemy's side — still counts as visible.
+        // If the hit is far from the player, there's a real wall between us.
+        float hitDistFromPlayer = Vector2.Distance(hit.point, target);
+        return hitDistFromPlayer < 0.5f;
     }
 
     // ---- Obstacle Avoidance ----
@@ -317,6 +332,12 @@ public class EnemyEmployee : MonoBehaviour
         {
             spriteRenderer.color = chaseColor;
         }
+
+        // Reset chase navigation
+        chaseStuckTimer = 0f;
+        totalChaseStuckTime = 0f;
+        lastChaseDistToPlayer = Vector2.Distance(transform.position, player.position);
+        isFlanking = false;
     }
 
     void EnterStunnedState()
@@ -354,15 +375,91 @@ public class EnemyEmployee : MonoBehaviour
 
     void ChasePlayer()
     {
-        Vector2 direction = ((Vector2)player.position - (Vector2)transform.position).normalized;
+        Vector2 toPlayer = (Vector2)player.position - (Vector2)transform.position;
+        float distToPlayer = toPlayer.magnitude;
+        Vector2 dirToPlayer = toPlayer.normalized;
 
-        // Skip avoidance when close to the player — just beeline to them
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
-        if (distToPlayer > avoidanceRayLength)
+        // Skip avoidance when very close — just beeline
+        if (distToPlayer <= avoidanceRayLength)
         {
-            direction = AvoidObstacles(direction, chaseSpeed);
+            rb.linearVelocity = dirToPlayer * chaseSpeed;
+            chaseStuckTimer = 0f;
+            totalChaseStuckTime = 0f;
+            isFlanking = false;
+            lastChaseDistToPlayer = distToPlayer;
+            return;
         }
 
+        // --- Progress tracking ---
+        bool makingProgress = distToPlayer < lastChaseDistToPlayer - 0.05f;
+        lastChaseDistToPlayer = distToPlayer;
+
+        if (makingProgress)
+        {
+            chaseStuckTimer = 0f;
+            totalChaseStuckTime = 0f;
+            isFlanking = false;
+        }
+        else
+        {
+            chaseStuckTimer += Time.deltaTime;
+            totalChaseStuckTime += Time.deltaTime;
+
+            // Give up chase entirely if stuck for too long
+            if (totalChaseStuckTime >= chaseGiveUpTime)
+            {
+                EnterWanderState();
+                return;
+            }
+        }
+
+        // --- Flanking logic ---
+        if (isFlanking)
+        {
+            if (Time.time >= flankEndTime)
+            {
+                // Flank attempt ended — try direct chase again
+                isFlanking = false;
+                chaseStuckTimer = 0f;
+            }
+            else
+            {
+                // Move perpendicular with a slight bias toward the player
+                Vector2 perp = new Vector2(-dirToPlayer.y, dirToPlayer.x) * flankDirection;
+                Vector2 flankDir = (perp + dirToPlayer * 0.3f).normalized;
+                flankDir = AvoidObstacles(flankDir, chaseSpeed);
+                rb.linearVelocity = flankDir * chaseSpeed;
+                return;
+            }
+        }
+
+        // Trigger flanking when stuck long enough
+        if (chaseStuckTimer >= chaseStuckTime)
+        {
+            isFlanking = true;
+            flankEndTime = Time.time + flankDuration;
+
+            // Pick the side with more open space
+            Vector2 leftPerp = new Vector2(-dirToPlayer.y, dirToPlayer.x);
+            Vector2 rightPerp = new Vector2(dirToPlayer.y, -dirToPlayer.x);
+
+            RaycastHit2D leftHit = Physics2D.Raycast(transform.position, leftPerp, avoidanceRayLength * 3f, obstacleLayer);
+            RaycastHit2D rightHit = Physics2D.Raycast(transform.position, rightPerp, avoidanceRayLength * 3f, obstacleLayer);
+
+            float leftDist = leftHit.collider != null ? leftHit.distance : avoidanceRayLength * 3f;
+            float rightDist = rightHit.collider != null ? rightHit.distance : avoidanceRayLength * 3f;
+
+            flankDirection = leftDist >= rightDist ? 1 : -1;
+
+            Vector2 perp = new Vector2(-dirToPlayer.y, dirToPlayer.x) * flankDirection;
+            Vector2 flankDir = (perp + dirToPlayer * 0.3f).normalized;
+            flankDir = AvoidObstacles(flankDir, chaseSpeed);
+            rb.linearVelocity = flankDir * chaseSpeed;
+            return;
+        }
+
+        // --- Normal direct chase ---
+        Vector2 direction = AvoidObstacles(dirToPlayer, chaseSpeed);
         rb.linearVelocity = direction * chaseSpeed;
     }
 
