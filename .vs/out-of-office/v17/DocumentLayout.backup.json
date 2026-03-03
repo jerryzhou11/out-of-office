@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|c:\\users\\tulip\\documents\\25-26\\cs377\\out-of-office\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|c:\\users\\tulip\\documents\\25-26\\cs377\\out-of-office\\assets\\scripts\\enemyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\assets\\scripts\\enemyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -30,8 +30,7 @@
               "RelativeToolTip": "Assets\\Scripts\\EnemyEmployee.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUBAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-09T20:25:28.713Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-09T20:25:28.713Z"
             },
             {
               "$type": "Document",
@@ -41,7 +40,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
               "ToolTip": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Scripts\\PlayerController.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHoAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-09T20:23:32.413Z",
               "EditorCaption": ""
