@@ -21,12 +21,15 @@ MonoBehaviour:
     instantiationMode: 0
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
   - dependency: {fileID: 6699355363340681033, guid: 7669931ce87ee4d64896aaa016e67b82, type: 3}
 =======
   - dependency: {fileID: 7400000, guid: fa191d4a7a8a89245bdc86821a9301c2, type: 2}
 >>>>>>> Stashed changes
     instantiationMode: 0
+=======
+>>>>>>> parent of 1ac455e (floor1 changes)
 =======
 >>>>>>> parent of 1ac455e (floor1 changes)
 =======
@@ -63,6 +66,7 @@ MonoBehaviour:
     instantiationMode: 1
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
@@ -71,6 +75,9 @@ MonoBehaviour:
 =======
   - dependency: {fileID: 11400000, guid: 723c1e2acbef3b14aae272093015275c, type: 2}
 >>>>>>> Stashed changes
+=======
+  - dependency: {fileID: 11400000, guid: e651fc87222a3964ca7882f9af341441, type: 2}
+>>>>>>> parent of 1ac455e (floor1 changes)
 =======
   - dependency: {fileID: 11400000, guid: e651fc87222a3964ca7882f9af341441, type: 2}
 >>>>>>> parent of 1ac455e (floor1 changes)
