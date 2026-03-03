@@ -21980,18 +21980,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2100568951790205684, guid: 7443d2b79dc4f4c079d8d4569f4d7887, type: 3}
-      propertyPath: normalColor.b
-      value: 0.047169805
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100568951790205684, guid: 7443d2b79dc4f4c079d8d4569f4d7887, type: 3}
-      propertyPath: normalColor.g
-      value: 0.047169805
-      objectReference: {fileID: 0}
-    - target: {fileID: 2100568951790205684, guid: 7443d2b79dc4f4c079d8d4569f4d7887, type: 3}
-      propertyPath: normalColor.r
-      value: 0.047169805
-      objectReference: {fileID: 0}
     - target: {fileID: 6223560899478805459, guid: 7443d2b79dc4f4c079d8d4569f4d7887, type: 3}
       propertyPath: m_Name
       value: Employee
