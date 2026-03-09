@@ -20,4 +20,24 @@ public class UIButtonCallbacks : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.NextDay();
     }
+
+    // Pause menu
+    public void OnResumePressed()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.Resume();
+    }
+
+    public void OnClockOutEarlyPressed()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.ClockOutEarly();
+    }
+
+    // Return to start menu
+    public void OnReturnToMenuPressed()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.ReturnToMainMenu();
+    }
 }

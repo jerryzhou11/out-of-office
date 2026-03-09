@@ -517,6 +517,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 330144978813768060, guid: 7443d2b79dc4f4c079d8d4569f4d7887, type: 3}
   m_PrefabInstance: {fileID: 331513713}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &373125414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6076338087622429283, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+  m_PrefabInstance: {fileID: 515559757}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7363156cd70f48cf97872ccff9f7fee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonCallbacks
 --- !u!114 &508745649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,26 +577,26 @@ PrefabInstance:
     - target: {fileID: 4632658805887839545, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1117869360}
+      objectReference: {fileID: 373125414}
     - target: {fileID: 4632658805887839545, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Resume
+      value: OnResumePressed
       objectReference: {fileID: 0}
     - target: {fileID: 4632658805887839545, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: UIButtonCallbacks, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5709489899089204837, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1117869360}
+      objectReference: {fileID: 373125414}
     - target: {fileID: 5709489899089204837, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClockOutEarly
+      value: OnClockOutEarlyPressed
       objectReference: {fileID: 0}
     - target: {fileID: 5709489899089204837, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: UIButtonCallbacks, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6574276610790464530, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_Pivot.x

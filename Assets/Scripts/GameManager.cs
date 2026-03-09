@@ -156,6 +156,30 @@ public class GameManager : MonoBehaviour
         return currentFloor >= floorScenes.Length - 1;
     }
 
+    /// <summary>
+    /// Start menu: reset everything and load the first floor.
+    /// </summary>
+    public void StartNewGame()
+    {
+        currentDay = 1;
+        currentFloor = 0;
+        savedClockMinutes = -1f;
+        LoadFloor(currentFloor);
+    }
+
+    /// <summary>
+    /// Return to the start menu. Destroys the singleton so a fresh
+    /// GameManager can be created when the player starts a new game.
+    /// </summary>
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        Instance = null;
+        Destroy(gameObject);
+        SceneManager.LoadScene("StartMenu");
+    }
+
     private void SetPanelActive(GameObject panel, bool active)
     {
         if (panel != null) panel.SetActive(active);
