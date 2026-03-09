@@ -14,10 +14,33 @@ public class GameClock : MonoBehaviour
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI clockText;
     [SerializeField] private TextMeshProUGUI dayText;
+    [SerializeField] private GameObject timePanel; // Parent panel to hide during boss fight
 
     private float currentMinutes;   // current game time in minutes from midnight
     private float minutesPerSecond; // derived from secondsPer10GameMinutes
     private bool dayEnded = false;
+    private bool frozen = false;
+
+    /// <summary>
+    /// Singleton-style access so BossController can find the clock easily.
+    /// Scene-level (not DontDestroyOnLoad).
+    /// </summary>
+    public static GameClock Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+    }
+
+    void OnDestroy()
+    {
+        if (Instance == this) Instance = null;
+    }
 
     void Start()
     {
@@ -44,6 +67,7 @@ public class GameClock : MonoBehaviour
         var state = GameManager.Instance.State;
         if (state != GameManager.GameState.Playing && state != GameManager.GameState.InDialogue) return;
         if (dayEnded) return;
+        if (frozen) return;
 
         currentMinutes += minutesPerSecond * Time.deltaTime;
 
@@ -83,6 +107,28 @@ public class GameClock : MonoBehaviour
 
         int day = GameManager.Instance != null ? GameManager.Instance.currentDay : 1;
         dayText.text = $"Day {day}";
+    }
+
+    /// <summary>
+    /// Freeze the clock and hide all clock UI. Used by the boss fight.
+    /// </summary>
+    public void FreezeAndHide()
+    {
+        frozen = true;
+        if (timePanel != null) timePanel.SetActive(false);
+        if (clockText != null) clockText.gameObject.SetActive(false);
+        if (dayText != null) dayText.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Unfreeze the clock and show UI again.
+    /// </summary>
+    public void UnfreezeAndShow()
+    {
+        frozen = false;
+        if (timePanel != null) timePanel.SetActive(true);
+        if (clockText != null) clockText.gameObject.SetActive(true);
+        if (dayText != null) dayText.gameObject.SetActive(true);
     }
 
     // Read-only access for other systems if needed

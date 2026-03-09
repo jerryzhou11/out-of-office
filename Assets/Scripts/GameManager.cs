@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Floor Progression")]
     [Tooltip("Scene names in order. Must match Build Settings exactly.")]
-    [SerializeField] private string[] floorScenes = new string[] { "Floor1", "Floor2" };
+    [SerializeField] private string[] floorScenes = new string[] { "Penthouse", "Floor1", "Floor2", "Floor3", "Floor4", "Floor5" };
     public int currentFloor = 0; // index into floorScenes
 
     [Header("Clock Persistence")]

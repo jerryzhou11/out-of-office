@@ -1,10 +1,15 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Staircase : MonoBehaviour
 {
     [Header("Visual (Optional)")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Color staircaseColor = new Color(0.4f, 0.8f, 0.4f); // Green
+
+    [Header("Override (Boss Arena)")]
+    [Tooltip("If set, loads this scene instead of progressing to the next floor. Use for the final staircase leading to the boss.")]
+    [SerializeField] private string overrideSceneName = "";
 
     void Start()
     {
@@ -20,6 +25,13 @@ public class Staircase : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         if (GameManager.Instance == null) return;
         if (GameManager.Instance.State != GameManager.GameState.Playing) return;
+
+        // Override: load a specific scene (e.g., boss arena) instead of normal progression
+        if (!string.IsNullOrEmpty(overrideSceneName))
+        {
+            SceneManager.LoadScene(overrideSceneName);
+            return;
+        }
 
         // Last floor: show win screen. Otherwise: go straight to next floor.
         if (GameManager.Instance.IsLastFloor())

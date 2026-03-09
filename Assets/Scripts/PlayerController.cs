@@ -139,6 +139,13 @@ public class PlayerController : MonoBehaviour
                 Vector2 knockbackDir = (hit.transform.position - transform.position).normalized;
                 employee.ApplyKnockback(knockbackDir);
             }
+
+            // Boss fight: check for exposed critical points
+            CriticalPoint critPoint = hit.GetComponent<CriticalPoint>();
+            if (critPoint != null)
+            {
+                critPoint.OnMeleeHit();
+            }
         }
 
         // Play attack animation when we make one
