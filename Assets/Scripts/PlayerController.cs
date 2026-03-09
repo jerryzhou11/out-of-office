@@ -15,10 +15,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float iFramePushRadius = 2f;
     [SerializeField] private float iFramePushForce = 8f;
 
+    // Status effect IDs used by StatusEffectManager
+    public const string EFFECT_ATTACK_DISABLED = "attack_disabled";
+    public const string EFFECT_COFFEE_SPEED = "coffee_speed";
+
+    private float speedBonus = 0f;
+
     private Rigidbody2D rb;
     private Vector2 movement;
     private float lastAttackTime;
     private float iFrameEndTime;
+    private float attackDisableEndTime;
     private Animator animator;
     private Camera mainCamera;
     private SpriteRenderer spriteRenderer;
@@ -77,7 +84,7 @@ public class PlayerController : MonoBehaviour
         Mouse mouse = Mouse.current;
         if (mouse != null && mouse.leftButton.wasPressedThisFrame)
         {
-            if (Time.time >= lastAttackTime + attackCooldown)
+            if (Time.time >= lastAttackTime + attackCooldown && !IsAttackDisabled())
             {
                 Attack();
             }
@@ -94,8 +101,8 @@ public class PlayerController : MonoBehaviour
     
     void FixedUpdate()
     {
-        // Move the player
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        // Move the player (base speed + any bonus from pickups)
+        rb.MovePosition(rb.position + movement * (moveSpeed + speedBonus) * Time.fixedDeltaTime);
     }
 
     void Attack()
@@ -139,6 +146,35 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
+    }
+
+    // ---- Speed Boost (Coffee) ----
+
+    public void ApplySpeedBoost(float bonus)
+    {
+        speedBonus += bonus;
+
+        if (StatusEffectManager.Instance != null)
+        {
+            StatusEffectManager.Instance.AddEffect(EFFECT_COFFEE_SPEED, -1f); // permanent for the day
+        }
+    }
+
+    // ---- Attack Disable ----
+
+    public void DisableAttack(float duration)
+    {
+        attackDisableEndTime = Time.time + duration;
+
+        if (StatusEffectManager.Instance != null)
+        {
+            StatusEffectManager.Instance.AddEffect(EFFECT_ATTACK_DISABLED, duration);
+        }
+    }
+
+    public bool IsAttackDisabled()
+    {
+        return Time.time < attackDisableEndTime;
     }
 
     // ---- Invincibility Frames ----

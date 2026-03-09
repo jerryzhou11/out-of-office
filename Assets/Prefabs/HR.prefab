@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6699355363340681033
+--- !u!1 &7024599692941403977
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3121847964296796071}
-  - component: {fileID: 8173293951952587736}
-  - component: {fileID: 3100751733082745349}
-  - component: {fileID: 7446977951831567021}
-  m_Layer: 0
-  m_Name: Coffee
+  - component: {fileID: 7507748424283618115}
+  - component: {fileID: 482969286458771697}
+  - component: {fileID: 4294209405471808224}
+  - component: {fileID: 4914114089527665613}
+  - component: {fileID: 1094146559129646496}
+  m_Layer: 8
+  m_Name: HR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3121847964296796071
+--- !u!4 &7507748424283618115
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699355363340681033}
+  m_GameObject: {fileID: 7024599692941403977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.64674, y: 5.00606, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalPosition: {x: -10.095609, y: 3.3156037, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8173293951952587736
+--- !u!212 &482969286458771697
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699355363340681033}
+  m_GameObject: {fileID: 7024599692941403977}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -81,9 +82,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4483504832982471387, guid: c7f24c7cf928941e6af2593eba873e67, type: 3}
+  m_Sprite: {fileID: 6428056806411725142, guid: f644d77b8ce90de499de8483aad42af3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,13 +94,40 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &3100751733082745349
-BoxCollider2D:
+--- !u!50 &4294209405471808224
+Rigidbody2D:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699355363340681033}
+  m_GameObject: {fileID: 7024599692941403977}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!58 &4914114089527665613
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024599692941403977}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -123,32 +151,61 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.16, y: 0.16}
-  m_EdgeRadius: 0
---- !u!114 &7446977951831567021
+  m_Radius: 0.5
+--- !u!114 &1094146559129646496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699355363340681033}
+  m_GameObject: {fileID: 7024599692941403977}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c98f9e9015bd4310bf1e3b87d924e37, type: 3}
+  m_Script: {fileID: 11500000, guid: f59d04ad16da44ff0b017911c6644bba, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CoffeePickup
-  speedBoost: 1.5
+  m_EditorClassIdentifier: Assembly-CSharp::HRRepEnemy
+  moveSpeed: 2
+  chaseSpeed: 2.5
+  wanderRadius: 3
+  wanderChangeInterval: 2
+  detectionRadius: 5
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  requireLineOfSight: 1
+  avoidanceRayLength: 1.5
+  avoidanceStrength: 2
+  avoidanceRayCount: 3
+  avoidanceSpreadAngle: 45
+  chaseStuckTime: 0.5
+  flankDuration: 1.5
+  chaseGiveUpTime: 5
+  useStartAsHome: 1
+  homePoint: {x: 0, y: 0}
+  knockbackForce: 5
+  knockbackDuration: 0.3
+  stunDuration: 1
+  returnHomeCooldown: 3
+  spriteRenderer: {fileID: 0}
+  normalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  chaseColor: {r: 1, g: 0, b: 0.49331045, a: 1}
+  stunnedColor: {r: 0.7, g: 0.7, b: 0.3, a: 1}
+  possibleDialogues:
+  - Hey boss! Got a minute?
+  - I need to talk to you about my performance review!
+  - Have you seen my TPS reports?
+  - Can we schedule a 1-on-1?
+  - I've been here since 6 AM waiting for you!
+  attackDisableDuration: 5
+  hrDialogues:
+  - You need to stop slapping your employees around!
+  - I'm getting too many complaints about your... management style.
+  - HR has received multiple reports of workplace violence!
+  - This is your formal warning about physical conduct!
+  debuffTooltip: <i>Your attack has been temporarily disabled!</i>
+  confirmButtonText: Fine, I understand.

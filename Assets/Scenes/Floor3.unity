@@ -21118,6 +21118,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 296022403}
+    - target: {fileID: 6181712518373579896, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6574276610790464530, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -21295,7 +21299,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6748849936338068788, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+    - {fileID: 1647328350169864307, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
+    - {fileID: 1078834930844665701, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6574276610790464530, guid: 3516a8a4e9624467db8c85bdd5d2260b, type: 3}
       insertIndex: 4

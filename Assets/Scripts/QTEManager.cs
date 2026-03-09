@@ -124,6 +124,22 @@ public class QTEManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Hides all QTE UI elements (prompt, key display, timer bar, click target)
+    /// without affecting internal state. Used when dialogue skips the QTE.
+    /// </summary>
+    /// <summary>
+    /// Hides individual QTE elements without touching the QTE panel itself,
+    /// since the panel may share hierarchy with the dialogue panel.
+    /// </summary>
+    public void HideUI()
+    {
+        if (promptText != null) promptText.gameObject.SetActive(false);
+        if (keyDisplayText != null) keyDisplayText.gameObject.SetActive(false);
+        if (timerBarFill != null) timerBarFill.gameObject.SetActive(false);
+        if (clickTarget != null) clickTarget.gameObject.SetActive(false);
+    }
+
+    /// <summary>
     /// Called by DialogueManager to start a QTE. onCompleteCallback fires when the player succeeds.
     /// </summary>
     public void StartQTE(System.Action onCompleteCallback)
@@ -145,6 +161,10 @@ public class QTEManager : MonoBehaviour
         {
             qtePanel.SetActive(true);
         }
+
+        // Re-enable elements that HideUI() may have disabled
+        if (promptText != null) promptText.gameObject.SetActive(true);
+        if (timerBarFill != null) timerBarFill.gameObject.SetActive(true);
 
         switch (currentType)
         {

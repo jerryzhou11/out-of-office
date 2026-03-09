@@ -39,7 +39,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void ShowDialogue(string text, EnemyEmployee enemy = null)
+    public void ShowDialogue(string text, EnemyEmployee enemy = null, bool skipQTE = false, string confirmText = null)
     {
         if (dialoguePanel == null)
         {
@@ -67,15 +67,28 @@ public class DialogueManager : MonoBehaviour
 
         isDialogueActive = true;
 
-        // Start QTE if manager is assigned, otherwise show continue button
-        if (qteManager != null)
+        // Start QTE if manager is assigned and not skipped, otherwise show confirm button
+        if (!skipQTE && qteManager != null)
         {
             if (continueButton != null) continueButton.gameObject.SetActive(false);
             qteManager.StartQTE(OnQTEComplete);
         }
         else
         {
-            if (continueButton != null) continueButton.gameObject.SetActive(true);
+            // No QTE — hide QTE UI elements and show the confirm button
+            if (qteManager != null) qteManager.HideUI();
+
+            if (continueButton != null)
+            {
+                continueButton.gameObject.SetActive(true);
+
+                // Update button label if custom text provided
+                if (confirmText != null)
+                {
+                    TextMeshProUGUI btnText = continueButton.GetComponentInChildren<TextMeshProUGUI>();
+                    if (btnText != null) btnText.text = confirmText;
+                }
+            }
         }
     }
 

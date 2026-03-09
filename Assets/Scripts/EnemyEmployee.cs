@@ -40,10 +40,10 @@ public class EnemyEmployee : MonoBehaviour
     [SerializeField] private bool useStartAsHome = true;
     [SerializeField] private Vector2 homePoint;
 
-    private Rigidbody2D rb;
-    private Collider2D col;
-    private Collider2D playerCol;
-    private Transform player;
+    protected Rigidbody2D rb;
+    protected Collider2D col;
+    protected Collider2D playerCol;
+    protected Transform player;
     private Vector2 wanderTarget;
     private float nextWanderTime;
 
@@ -62,10 +62,10 @@ public class EnemyEmployee : MonoBehaviour
 
     [Header("Post-Dialogue Cooldown")]
     [SerializeField] private float returnHomeCooldown = 3f;
-    private float canChaseAgainTime;
+    protected float canChaseAgainTime;
 
-    private enum State { Wandering, Chasing, KnockedBack, Stunned, ReturningHome }
-    private State currentState = State.Wandering;
+    protected enum State { Wandering, Chasing, KnockedBack, Stunned, ReturningHome }
+    protected State currentState = State.Wandering;
 
     [Header("Visual Feedback")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -527,7 +527,7 @@ public class EnemyEmployee : MonoBehaviour
 
     // ---- Dialogue ----
 
-    public void OnDialogueEnd()
+    public virtual void OnDialogueEnd()
     {
         canChaseAgainTime = Time.time + returnHomeCooldown;
         currentState = State.ReturningHome;
@@ -562,21 +562,26 @@ public class EnemyEmployee : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Don't trigger dialogue if player has i-frames
-            PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
-            if (pc != null && pc.HasIFrames()) return;
-
-            DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
-            if (dialogue != null)
-            {
-                string randomDialogue = GetRandomDialogue();
-                dialogue.ShowDialogue(randomDialogue, this);
-            }
-
-            rb.linearVelocity = Vector2.zero;
-            currentState = State.Wandering;
-            ReturnHome();
+            HandlePlayerCollision(collision);
         }
+    }
+
+    protected virtual void HandlePlayerCollision(Collision2D collision)
+    {
+        // Don't trigger dialogue if player has i-frames
+        PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
+        if (pc != null && pc.HasIFrames()) return;
+
+        DialogueManager dialogue = FindFirstObjectByType<DialogueManager>();
+        if (dialogue != null)
+        {
+            string randomDialogue = GetRandomDialogue();
+            dialogue.ShowDialogue(randomDialogue, this);
+        }
+
+        rb.linearVelocity = Vector2.zero;
+        currentState = State.Wandering;
+        ReturnHome();
     }
 
     // ---- Collision Ignore ----
