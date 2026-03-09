@@ -1,3 +1,4 @@
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
             slashEffect = GetComponent<AttackSlash>();
         }
     }
-    
+
     void Update()
     {
         // Freeze if not in Playing state (covers Paused, Won, Lost, InDialogue)
@@ -60,21 +61,40 @@ public class PlayerController : MonoBehaviour
             movement = Vector2.zero;
             return;
         }
-        
+
         // Simple polling for movement
         movement = Vector2.zero;
-        
+
         Keyboard keyboard = Keyboard.current;
         if (keyboard != null)
         {
-            if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed) 
+            bool isUp = keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed;
+            bool isDown = keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed;
+            bool isLeft = keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed;
+            bool isRight = keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed;
+            bool isMoving = isUp || isDown || isLeft || isRight;
+
+            if (isUp)
                 movement.y += 1;
-            if (keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed) 
+            if (isDown)
                 movement.y -= 1;
-            if (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed) 
+            if (isLeft) 
                 movement.x -= 1;
-            if (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed) 
+            if (isRight) 
                 movement.x += 1;
+
+
+            // Update animator when we do animations
+            if (animator != null)
+            {
+                float speed = isMoving ? moveSpeed : 0f;
+                animator.SetFloat("Speed", speed);
+                animator.SetBool("IsUp", isUp);
+                animator.SetBool("IsDown", isDown);
+                animator.SetBool("IsLeft", isLeft);
+                animator.SetBool("IsRight", isRight);
+                animator.SetBool("IsMoving", movement.magnitude > 0);
+            }
         }
         
         // Normalize diagonal movement
@@ -90,13 +110,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        // Update animator when we do animations
-        if (animator != null)
-        {
-            animator.SetFloat("MoveX", movement.x);
-            animator.SetFloat("MoveY", movement.y);
-            animator.SetBool("IsMoving", movement.magnitude > 0);
-        }
+        
     }
     
     void FixedUpdate()
