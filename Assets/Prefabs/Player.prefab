@@ -182,8 +182,8 @@ MonoBehaviour:
   moveSpeed: 5
   attackRange: 1.5
   attackCooldown: 0.2
-  iFrameDuration: 1
-  iFramePushRadius: 2
+  iFrameDuration: 0
+  iFramePushRadius: 3
   iFramePushForce: 2
   slashEffect: {fileID: 0}
 --- !u!114 &1387446756478823510
