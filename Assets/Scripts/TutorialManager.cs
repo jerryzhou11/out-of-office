@@ -36,15 +36,19 @@ public class TutorialManager : MonoBehaviour
 
         print(popUpIndex);
 
+        if(popUpIndex == 0)
+        {
+            pc.DisableAttack(2f);
+        }
+
         if (keyboard != null)
         {
-            if (popUpIndex == 0) { 
+            if (popUpIndex == 0) {
                 if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed 
                     || keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed
                     || keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed
                     || keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed)
                 {
-                    pc.DisableAttack(5f);
                     popUpIndex++;
                 }
             }
