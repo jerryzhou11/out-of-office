@@ -275,7 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Staircase
   spriteRenderer: {fileID: 101574881}
   staircaseColor: {r: 0.4, g: 0.8, b: 0.4, a: 1}
-  overrideSceneName: 
+  overrideSceneName: Floor4
 --- !u!61 &101574884
 BoxCollider2D:
   m_ObjectHideFlags: 0
