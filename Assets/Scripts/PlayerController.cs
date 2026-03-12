@@ -163,10 +163,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // Play attack animation when we make one
-        if (animator != null)
-        {
-            animator.SetTrigger("Attack");
-        }
+        //if (animator != null)
+        //{
+            //animator.SetTrigger("Attack");
+       // }
     }
 
     // ---- Speed Boost (Coffee) ----

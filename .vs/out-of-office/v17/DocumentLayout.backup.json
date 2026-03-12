@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|c:\\users\\tulip\\documents\\25-26\\cs377\\out-of-office\\assets\\scripts\\dialoguemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\dialoguemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|c:\\users\\tulip\\documents\\25-26\\cs377\\out-of-office\\assets\\prefabs\\tutorialmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\prefabs\\tutorialmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\tutorial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Prefabs\\tutorial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\assets\\prefabs\\spawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\prefabs\\spawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\assets\\prefabs\\dialogueasset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\prefabs\\dialogueasset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\assets\\scripts\\enemyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E1FF340F-5F8A-22A9-E9BE-80B9F85E48AF}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\DialogueAsset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Prefabs\\DialogueAsset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,8 +34,33 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DialogueManager.cs",
+              "DocumentMoniker": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Scripts\\DialogueManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DialogueManager.cs",
+              "ToolTip": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Scripts\\DialogueManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DialogueManager.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T02:15:47.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Spawner.cs",
+              "DocumentMoniker": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\Spawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Prefabs\\Spawner.cs",
+              "ToolTip": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\Spawner.cs",
+              "RelativeToolTip": "Assets\\Prefabs\\Spawner.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwBUAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-09T19:56:05.78Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -40,25 +69,14 @@
               "RelativeDocumentMoniker": "Assets\\Prefabs\\TutorialManager.cs",
               "ToolTip": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\TutorialManager.cs",
               "RelativeToolTip": "Assets\\Prefabs\\TutorialManager.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAA6wB4AAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwBgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-09T18:58:33.948Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "tutorial.cs",
-              "DocumentMoniker": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\tutorial.cs",
-              "RelativeDocumentMoniker": "Assets\\Prefabs\\tutorial.cs",
-              "ToolTip": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\tutorial.cs",
-              "RelativeToolTip": "Assets\\Prefabs\\tutorial.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-09T18:10:04.09Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "DialogueAsset.cs",
               "DocumentMoniker": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Prefabs\\DialogueAsset.cs",
               "RelativeDocumentMoniker": "Assets\\Prefabs\\DialogueAsset.cs",
@@ -70,7 +88,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\tulip\\Documents\\25-26\\CS377\\out-of-office\\Assets\\Scripts\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
@@ -78,8 +96,7 @@
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
               "ViewState": "AgIAAFEAAAAAAAAAAAAqwFoAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-09T20:23:32.413Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-09T20:23:32.413Z"
             },
             {
               "$type": "Document",
