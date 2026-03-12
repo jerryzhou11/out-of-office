@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Staircase
   spriteRenderer: {fileID: 101574881}
   staircaseColor: {r: 0.4, g: 0.8, b: 0.4, a: 1}
-  overrideSceneName: 
+  overrideSceneName: Floor2
 --- !u!61 &101574884
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2259,9 +2259,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1506516980}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 868.5, y: 469.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -91.5, y: -70.5}
   m_SizeDelta: {x: 183, y: 141}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1731690103

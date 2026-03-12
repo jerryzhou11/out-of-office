@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
     public void ClockOutEarly()
     {
         currentDay++;
-        currentFloor = 0;
+        currentFloor = 1; // Skip Penthouse (tutorial) on subsequent days
         savedClockMinutes = -1f; // new day, fresh clock
         LoadFloor(currentFloor);
     }
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
     public void NextDay()
     {
         currentDay++;
-        currentFloor = 0;
+        currentFloor = 1; // Skip Penthouse (tutorial) on subsequent days
         savedClockMinutes = -1f; // new day, fresh clock
         LoadFloor(currentFloor);
     }

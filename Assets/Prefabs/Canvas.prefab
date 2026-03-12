@@ -47,6 +47,7 @@ MonoBehaviour:
   secondsPer10GameMinutes: 2
   clockText: {fileID: 5000092757852321686}
   dayText: {fileID: 7484235318125963285}
+  timePanel: {fileID: 0}
 --- !u!1 &1192817656729205937
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,7 +73,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192817656729205937}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1099,8 +1100,8 @@ RectTransform:
   - {fileID: 1987350319101259127}
   - {fileID: 6819969379165346968}
   - {fileID: 5257704843596790259}
-  - {fileID: 9099060253376566704}
   - {fileID: 3791684543381529282}
+  - {fileID: 9099060253376566704}
   - {fileID: 8251455209289835960}
   - {fileID: 3168432908485333741}
   - {fileID: 6181712518373579896}
@@ -2555,9 +2556,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6574276610790464530}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 868.5, y: 469.5}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -91.5, y: -70.5}
   m_SizeDelta: {x: 183, y: 141}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8648384731746227878
