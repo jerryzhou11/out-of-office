@@ -28,7 +28,6 @@ public class TutorialManager : MonoBehaviour
 
         Keyboard keyboard = Keyboard.current;
         Mouse mouse = Mouse.current;
-        pc.DisableAttack(5f);
 
         if (anim != null)
         {
@@ -39,12 +38,13 @@ public class TutorialManager : MonoBehaviour
 
         if (keyboard != null)
         {
-            if (popUpIndex == 1) { 
+            if (popUpIndex == 0) { 
                 if (keyboard.wKey.isPressed || keyboard.upArrowKey.isPressed 
                     || keyboard.sKey.isPressed || keyboard.downArrowKey.isPressed
                     || keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed
                     || keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed)
                 {
+                    pc.DisableAttack(5f);
                     popUpIndex++;
                 }
             }
@@ -54,7 +54,11 @@ public class TutorialManager : MonoBehaviour
         {
             if (popUpIndex == 1) 
             {
-                popUpIndex++;
+                if (mouse.leftButton.wasPressedThisFrame)
+                {
+                    popUpIndex++;
+                }
+                
             } 
         }      
     }

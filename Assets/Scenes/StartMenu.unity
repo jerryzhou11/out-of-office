@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd38a474bb88746a18deb803adf9eeee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMenu
-  firstFloorScene: Floor1
+  firstFloorScene: Penthouse
 --- !u!114 &1089456402
 MonoBehaviour:
   m_ObjectHideFlags: 0
